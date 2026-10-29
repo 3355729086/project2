@@ -1,0 +1,120 @@
+levels = [1, 2, 3, 4, 5]
+coins = [5, 8, 3, 10, 7]
+enemies = [2, 4, 1, 5, 3]
+power_ups = ["Mushroom", "Star", "Flower", "Mushroom", "Star"]
+print("=====PLATFORM ADVENTURE=====") #step1
+for i in range(len(levels)):
+    print(f'Level {levels[i]}')
+    print(f'Coins: {coins[i]}')
+    print(f'Enemies: {enemies[i]}')
+    print(f'Power_ups: {power_ups[i]}')
+
+print("=====PLATFORM ADVENTURE=====") #step2
+player_name = "Hero"
+lives = 3
+score = 0
+total_coins = 0
+print(f'Player:{player_name}')
+print(f'Lives:{lives}')
+print(f'Score:{score}')
+print(f'Total Coins:{total_coins}')
+
+print("===== LEVEL SCORES =====")     #step3
+level_scores = []
+for i in range(len(levels)):
+    if i == 0:
+        level_scores.append(10*coins[i]-5*enemies[i])
+    elif i == 1:
+        level_scores.append(10 * coins[i] - 5 * enemies[i]+25)
+    elif i == 2:
+        level_scores.append(10 * coins[i] - 5 * enemies[i])
+    elif i == 3:
+        level_scores.append(10 * coins[i] - 5 * enemies[i])
+    else:
+        level_scores.append(10 * coins[i] - 5 * enemies[i]+25)
+    print(f'Level {i+1} Score:{level_scores[i]}')
+print("===== ADVENTURE ACTIONS =====")  #step4
+action_results = []
+actions = [0, 1, 0, 2,1]
+for i in range(len(actions)):
+    if actions[i]==0:
+        action_results.append("Collect Coins")
+    elif actions[i] == 1:
+        action_results.append("Fight Enemies")
+    elif actions[i] == 2:
+        action_results.append("Use Power_Up")
+
+    print(f'Level {i+1} :{action_results[i]}')
+print("===== LIFE HISTORY =====") #step5
+live_history=[3,3,3,3,3]
+for i in range(len(power_ups)):
+    if power_ups[i] == "Star":
+        live_history[i]=4
+    else:
+        live_history[i]=3
+for i in range(len(enemies)):
+    if enemies[i] >= 4:
+        live_history[i]=live_history[i]-1
+    elif enemies[i] <4:
+        live_history[i]=live_history[i]
+    print(f'After Level {i+1}:{live_history[i]} lives')
+print("===== COIN COLLECTION =====")#step6
+total = sum(coins)
+bonus_coin_levels = [coin for coin in coins if coin >= 7]
+print(f'Coins collected: {total} \nLevels with 7 or more coins: {bonus_coin_levels}')
+print("===== POWER-UP INVENTORY =====")#step7
+inventory = ["Mushroom", "Star", "Flower"]
+used_powerups = inventory[:]
+used_powerups.pop()
+Remaining_Inventory = inventory[:]
+Remaining_Inventory.pop(0)
+Remaining_Inventory.pop(0)
+print(f'Starting Inventory:{inventory}')
+print(f'Used Power-Ups:{used_powerups}')
+print(f'Remaining_Inventory:{Remaining_Inventory}')
+print("===== LEVEL ANALYSIS =====")#step8
+Total_coins=sum(coins)
+Most_coins_in_one_level=0
+for coin in coins:
+    if coin > Most_coins_in_one_level:
+        Most_coins_in_one_level=coin
+Fewest_coins_in_one_level=100
+for coin in coins:
+    if coin < Fewest_coins_in_one_level:
+        Fewest_coins_in_one_level=coin
+Average_coins_per_level=Total_coins/len(coins)
+Total_enemies=sum(enemies)
+Most_enemies_in_one_level=0
+for enem in enemies:
+    if enem > Most_enemies_in_one_level:
+        Most_enemies_in_one_level=enem
+print(f'Total Coins:{Total_coins} \nMost coins in one level:{Most_coins_in_one_level} \nFewest coins in one level:{Fewest_coins_in_one_level} \nAverage coins per level:{Average_coins_per_level} \nTotal enemies:{Total_enemies} \nMost enemies in one level:{Most_enemies_in_one_level}')
+print("===== HIGH SCORES =====")#step9
+Score_of_50_or_Higher=[]
+for i in range(len(level_scores)):
+    if level_scores[i]>=50:
+        Score_of_50_or_Higher.append(level_scores[i])
+print(f'Score of 50 or Higher:{Score_of_50_or_Higher}')
+print("===== SCORE HISTORY =====")#step10
+score_history=[]
+cumulative_score=0
+for i in range(len(level_scores)):
+    cumulative_score+=level_scores[i]
+    score_history.append(cumulative_score)
+    print(f'After Level {i+1}:{cumulative_score}')
+print(f'First Two Scores:{score_history[:2]}')
+print(f'Last Two Scores:{score_history[-2:]}')
+print("===== FINAL STATUS =====")#step11
+if live_history[-1] == 0:
+        print("Game Over")
+
+if score_history[-1] >=250:
+        print("Adventure Champion")
+elif score_history[-1] >=150:
+        print("Great Adventure ")
+else:
+        print("Keep Practicing")
+print("===== ADVENTURE RANKING =====")
+print(f'Final Score:{cumulative_score}')
+print(f'Final_Lives:{live_history[-1]}')
+print("Rank:Legend")
